@@ -1,5 +1,8 @@
 const express = require('express')
-const router = express.Router()
+const { userRouter } = require("./routes/user.js")
+const { adminRouter } = require("./routes/admin.js")
+const { courseRouter } = require("./routes/course.js")
+const router = express.Router() // express library provies you someting called router
 const mongoose = require("mongoose")
 require("dotenv").config();
 const jwt = require("jsonwebtoken")
@@ -7,6 +10,10 @@ const bcrypt = require("bcrypt")
 const { z } = require("zod")
 const app = express()
 const port = process.env.PORT || 5000
+app.use(express.json())
+app.use("/api/v1/user", userRouter) // anytime a req comes to /api/v1/user the req will be handles by userRouter
+app.use("/api/v1/admin", adminRouter)
+app.use("/api/v1/course", courseRouter)
 
 if (!process.env.MONGODB_URI) {
     console.error('❌ MONGODB_URI is not defined in environment variables.');

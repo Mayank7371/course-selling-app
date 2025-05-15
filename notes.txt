@@ -1,0 +1,15 @@
+mongoose.connect() – for connecting to MongoDB
+
+mongoose.Schema – for defining schemas
+
+mongoose.model() – for creating models
+
+mongoose.connection – the current connection to MongoDB
+
+mongoose has a property called .connection, which is an EventEmitter. This object represents the current connection to MongoDB.
+
+You can:
+
+Listen to events like connected, disconnected, and error
+
+Call methods like .close() to terminate the connection

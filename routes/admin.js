@@ -12,6 +12,11 @@ adminRouter.post("/signin", (req, res, next) => {
 adminRouter.post("/add-course", (req, res, next) => {
 
 })
+adminRouter.put("/course", (req, res) => {
+    res.json({
+        message: "admin needs to change the courses"
+    })
+})
 
 module.exports = {
     adminRouter: adminRouter

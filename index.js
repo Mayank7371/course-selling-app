@@ -3,6 +3,7 @@ const express = require("express");
 const { userRouter } = require("./routes/user.js");
 const { adminRouter } = require("./routes/admin.js");
 const { courseRouter } = require("./routes/course.js");
+const { userModel, courseModel, adminModel } = require("./db.js")
 const mongoose = require("mongoose");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
@@ -30,6 +31,10 @@ async function connectDB() {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
     console.log(`Database is now connected...`);
+    // Start the server
+    app.listen(port, () => {
+      console.log(`Example app listening on port ${port}`);
+    });
   } catch (error) {
     console.error(
       `FATAL ERROR: error in connecting to the database, exiting... `,
@@ -47,17 +52,14 @@ app.get("/status", (req, res) => {
 });
 
 // Placeholder route for user signup
-app.post("user/signup", (req, res) => {});
+app.post("user/signup", (req, res) => { });
 // Placeholder route for user signin
-app.post("user/signin", (req, res) => {});
+app.post("user/signin", (req, res) => { });
 // Placeholder route for browsing courses
-app.get("/browse-courses", (req, res) => {});
+app.get("/browse-courses", (req, res) => { });
 // Placeholder route for user purchased courses
-app.post("user/purchased-courses", (req, res) => {});
+app.post("user/purchased-courses", (req, res) => { });
 // Placeholder route for purchasing a course
-app.post("/course/purchase", (req, res) => {});
+app.post("/course/purchase", (req, res) => { });
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+

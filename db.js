@@ -23,7 +23,6 @@ const userSchema = new Schema(
             required: [true, "Email is required"],
             lowercase: true,
             trim: true,
-            match: [/.+\@.+\..+/, "Please fill a valid email address"],
         },
 
     },

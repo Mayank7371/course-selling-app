@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 const { Schema, Types } = mongoose;
-const bcrypt = require('bcryptjs'); // Assuming you will install and use bcryptjs
-
 const userSchema = new Schema(
     {
         username: {
@@ -27,36 +25,10 @@ const userSchema = new Schema(
             trim: true,
             match: [/.+\@.+\..+/, "Please fill a valid email address"],
         },
-        // Consider adding a role if you consolidate User and Admin
-        // role: {
-        //     type: String,
-        //     enum: ['user', 'admin'],
-        //     default: 'user'
-        // },
-        purchasedCourses: [
-            {
-                type: Types.ObjectId,
-                ref: "Course",
-            },
-        ],
+
     },
     { timestamps: true }
 );
-
-userSchema.pre('save', async function (next) {
-    if (!this.isModified('password')) return next();
-    try {
-        const salt = await bcrypt.genSalt(10);
-        this.password = await bcrypt.hash(this.password, salt);
-        next();
-    } catch (error) {
-        next(error);
-    }
-});
-
-userSchema.methods.comparePassword = async function (candidatePassword) {
-    return bcrypt.compare(candidatePassword, this.password);
-};
 
 const courseSchema = new Schema(
     {
@@ -80,10 +52,8 @@ const courseSchema = new Schema(
         },
         creatorId: {
             type: Types.ObjectId,
-            ref: "User",
             required: [true, "Course creator is required"],
         },
-        published: { type: Boolean, default: false }
     },
     { timestamps: true }
 );
@@ -110,31 +80,17 @@ const adminSchema = new Schema(
             required: [true, "Email is required"],
             lowercase: true,
             trim: true,
-            match: [/.+\@.+\..+/, "Please fill a valid email address"],
         },
     },
     { timestamps: true }
 );
 
-adminSchema.pre('save', async function (next) {
-    if (!this.isModified('password')) return next();
-    try {
-        const salt = await bcrypt.genSalt(10);
-        this.password = await bcrypt.hash(this.password, salt);
-        next();
-    } catch (error) {
-        next(error);
-    }
-});
 
-adminSchema.methods.comparePassword = async function (candidatePassword) {
-    return bcrypt.compare(candidatePassword, this.password);
-};
 
-const User = mongoose.model("User", userSchema);
-const Course = mongoose.model("Course", courseSchema);
-const Admin = mongoose.model("Admin", adminSchema); // Since Admin schema is defined, it should be compiled and exported
+const userModel = mongoose.model("User", userSchema);
+const courseModel = mongoose.model("Course", courseSchema);
+const adminModel = mongoose.model("Admin", adminSchema); // Since Admin schema is defined, it should be compiled and exported
 
 // Exporting all defined models.
 // If you later consolidate Admin into User with a 'role', you would remove Admin model and export only User and Course.
-module.exports = { User, Course, Admin };
+module.exports = { userModel, courseModel, adminModel };

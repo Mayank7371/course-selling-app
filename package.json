@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A full-stack application for selling and purchasing online courses. Built using Node.js, Express, MongoDB, and JWT for authentication. Includes separate roles and functionality for Admins and Users.",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "dev": "nodemon index.js"
   },

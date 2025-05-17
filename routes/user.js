@@ -6,8 +6,9 @@ userRouter.post("/signup", (req, res, next) => {
   res.json({
     message: "you have hit the signup endpoint",
   });
+  next();
 });
-userRouter.post("/signin", (req, res, next) => {});
+userRouter.post("/signin", (req, res, next) => { });
 
 // Route for user logout
 userRouter.post("/logout", (req, res) => {
@@ -16,7 +17,7 @@ userRouter.post("/logout", (req, res) => {
   res.status(200).json({ message: "User logged out successfully" });
 });
 
-userRouter.post("/purchases", (req, res, next) => {});
+userRouter.post("/purchases", (req, res, next) => { });
 
 module.exports = {
   userRouter: userRouter,

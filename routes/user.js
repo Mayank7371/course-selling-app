@@ -80,8 +80,7 @@ userRouter.post("/signin", async (req, res) => {
 
 // Route for user logout
 userRouter.post("/logout", (req, res) => {
-  // For JWT, logout is primarily a client-side action (clearing the token).
-  // This endpoint can confirm the logout request.
+
   res.status(200).json({ message: "User logged out successfully" });
 });
 
